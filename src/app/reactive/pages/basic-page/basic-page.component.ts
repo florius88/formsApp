@@ -38,12 +38,16 @@ export class BasicPageComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.myForm.reset(rtx);
+    // this.myForm.reset(rtx);
   }
 
   onSave() {
 
-    if (this.myForm.invalid) return;
+    if (this.myForm.invalid) {
+      // Marca todo como que ha sido tocado . Pristine = true
+      this.myForm.markAllAsTouched();
+      return;
+    } 
 
     console.log(this.myForm.value)
 
