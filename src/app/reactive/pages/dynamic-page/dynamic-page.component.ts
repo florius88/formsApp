@@ -28,6 +28,12 @@ export class DynamicPageComponent {
     return this.myForm.get('favoriteGames') as FormArray;
   }
 
+  onDeleteFavorite(index: number): void {
+    /* this.myForm.controls['favoriteGames']...
+    Así sería si no tuviera el getter */
+    this.favoriteGames.removeAt(index);
+  }
+
   onSubmit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
