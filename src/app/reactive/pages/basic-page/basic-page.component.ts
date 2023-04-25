@@ -41,13 +41,36 @@ export class BasicPageComponent implements OnInit {
     // this.myForm.reset(rtx);
   }
 
+  isValidField(field: string): boolean | null {
+    return this.myForm.controls[field].errors
+      && this.myForm.controls[field].touched;
+  }
+
+  getFieldError(field: string): string | null {
+
+    if (!this.myForm.controls[field]) return null;
+
+    const errors = this.myForm.controls[field].errors || {};
+
+    // Me da un array con todos los errores que vengan
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'Este campo es requerido';
+        case 'minlength':
+          return `Este campo requeriere un mínimo de ${errors['minlength'].requiredLength} letras`;        
+      }
+    }
+    return null;
+  }
+
   onSave() {
 
     if (this.myForm.invalid) {
       // Marca todo como que ha sido tocado . Pristine = true
       this.myForm.markAllAsTouched();
       return;
-    } 
+    }
 
     console.log(this.myForm.value)
 
