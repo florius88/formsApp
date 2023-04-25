@@ -30,6 +30,11 @@ export class DynamicPageComponent {
     return this.myForm.get('favoriteGames') as FormArray;
   }
 
+  isValidField(field: string): boolean | null {
+    return this.myForm.controls[field].errors
+      && this.myForm.controls[field].touched;
+  }
+  
   onAddToFavorites(): void {
     if (this.newFavorite.invalid) return
 
